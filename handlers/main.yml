@@ -1,0 +1,15 @@
+- name: apparmor-libreoffice - Shutdown AppArmor service
+  service:
+    name: apparmor.service
+    state: stopped
+  listen: "restart apparmor"
+
+- name: apparmor-libreoffice - Remove AppArmor kernel rules
+  command: aa-teardown
+  listen: "restart apparmor"
+
+- name: apparmor-libreoffice - Start  AppArmor service
+  service:
+    name: apparmor.service
+    state: started
+  listen: "restart apparmor"

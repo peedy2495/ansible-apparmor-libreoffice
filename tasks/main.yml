@@ -1,14 +1,16 @@
-- name: correct AT-SPI bug
+- name: apparmor-libreoffice - correct AT-SPI bug
   lineinfile:
     path: /etc/apparmor.d/usr.lib.libreoffice.program.soffice.bin
     insertafter: 'owner @{HOME}/.config/dconf/user      r,\n'
     line: '  owner /{,var/}run/user/*/at-spi/bus*  rw,'
     state: present
+  notify: "restart apparmor"
 
-- name: grant rw to /media/*
+- name: apparmor-libreoffice - grant rw to /media/*
   blockinfile:
     path: /etc/apparmor.d/usr.lib.libreoffice.program.soffice.bin
     insertbefore: '}'
     block: |
       # Grant access to foreign files on removable storage
         /media/**                             rw,
+  notify: "restart apparmor"

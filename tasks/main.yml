@@ -1,5 +1,5 @@
 - name: apparmor-libreoffice - correct AT-SPI bug
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/apparmor.d/usr.lib.libreoffice.program.soffice.bin
     insertafter: 'owner @{HOME}/.config/dconf/user      r,\n'
     line: '  owner /{,var/}run/user/*/at-spi/bus*  rw,'
@@ -7,7 +7,7 @@
   notify: "restart apparmor"
 
 - name: apparmor-libreoffice - grant rw to /media/*
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /etc/apparmor.d/usr.lib.libreoffice.program.soffice.bin
     insertbefore: '}'
     block: |

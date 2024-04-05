@@ -13,4 +13,6 @@
     block: |
       # Grant access to foreign files on removable storage
         /media/**                             rw,
+      # Fix permission issue with mounted subvolume /home/devel/
+        @{HOME}/.config/**                    rwk,
   notify: "restart apparmor"
